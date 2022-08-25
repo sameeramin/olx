@@ -4,6 +4,7 @@ heroku:
  - main
  script:
  - git checkout main
- - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/olx-sameer.git
+ - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/olx-arbisoft.git
+
  - git push -f heroku main
  
