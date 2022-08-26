@@ -15,12 +15,12 @@
                 <div class="form-signin w-100 h-100"></div>
                 <form method="POST">
                     {% csrf_token %}
-                    <h1 class="h3 mb-3 fw-normal">Please Register!</h1>
+                    <h1 class="h3 mb-3 fw-normal">Please Login!</h1>
 
-                    {{ register_form|crispy }}
+                    {{ login_form|crispy }}
 
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-                    <sub>Already have an account? <a href="/login">Login here</a></sub>
+                    <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Login</button>
+                    <sub>Don't have an account? <a href="/register">Register here</a></sub>
                 </form>
             </div>
         </div>
