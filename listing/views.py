@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
@@ -50,4 +50,6 @@ def log_in(request):
 
 
 def log_out(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect("/")
