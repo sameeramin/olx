@@ -1,0 +1,28 @@
+{% extends 'listing/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block layout %}
+    {% load crispy_forms_tags %}
+    <main style="height: 95vh">
+        <div class="row align-items-center h-100">
+            <div class="col-4 m-auto">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}
+                                                  role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                <div class="form-signin w-100 h-100"></div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <h1 class="h3 mb-3 fw-normal">Please Register!</h1>
+
+                    {{ register_form|crispy }}
+
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+                    <sub>Already have an account? <a href="/admin">Login here</a></sub>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
