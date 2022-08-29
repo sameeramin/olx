@@ -35,7 +35,6 @@ INSTALLED_APPS = [
 
     # Local Apps
     'listing.apps.ListingConfig',
-    
     # Third Party Apps
     'crispy_forms',
 ]
