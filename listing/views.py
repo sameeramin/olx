@@ -1,55 +1,19 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.forms import UserCreationForm
 
 
+@login_required
 def index(request):
     return render(request, 'listing/layout.html')
 
 
-def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("/")
-
-        messages.warning(request, "Unsuccessful registration. Invalid information.")
-
-    if request.POST:
-        form = UserCreationForm(request.POST)
-    else:
-        form = UserCreationForm()
-    return render(request, 'listing/register.html', context={"register_form": form})
-
-
-def log_in(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You're logged in as {username}.")
-                return redirect("/")
-            else:
-                messages.warning(request, "Invalid username or password.")
-        else:
-            messages.warning(request, "Invalid username or password.")
-
-    form = AuthenticationForm()
-    return render(request, 'listing/login.html', context={"login_form": form})
-
-
-def log_out(request):
-    logout(request)
-    messages.success(request, "Logged out successfully!")
-    return redirect("/")
+class RegisterUserView(SuccessMessageMixin, CreateView):
+    """ Creates a new user account """
+    template_name = 'listing/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    success_message = "User account for %(username)s has been created successfully"

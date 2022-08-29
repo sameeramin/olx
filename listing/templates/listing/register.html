@@ -1,6 +1,10 @@
 {% extends 'listing/base.html' %}
 {% load crispy_forms_filters %}
 
+{% block title %}
+Register
+{% endblock %}
+
 {% block layout %}
     {% load crispy_forms_tags %}
     <main style="height: 95vh">
@@ -12,15 +16,14 @@
                                                   role="alert">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
-                <div class="form-signin w-100 h-100"></div>
                 <form method="POST">
                     {% csrf_token %}
                     <h1 class="h3 mb-3 fw-normal">Please Register!</h1>
 
-                    {{ register_form|crispy }}
+                    {{ form|crispy }}
 
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-                    <sub>Already have an account? <a href="/login">Login here</a></sub>
+                    <sub>Already have an account? <a href="{% url "login" %}">Login here</a></sub>
                 </form>
             </div>
         </div>
