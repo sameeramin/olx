@@ -20,6 +20,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['olx-arbisoft.herokuapp.com', '127.0.0.1']
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -32,8 +34,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local Apps
-    'listing.apps.ListingConfig'
+    'listing.apps.ListingConfig',
+    
+    # Third Party Apps
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

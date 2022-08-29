@@ -1,0 +1,42 @@
+{% extends 'listing/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block layout %}
+    {% load crispy_forms_tags %}
+    <main style="height: 95vh">
+        <div class="row align-items-center h-100">
+            <div class="col-4 m-auto">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}
+                                                  role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <div class="alert alert-warning">Your account doesn't have access to this page. To proceed,
+                            please log in with an account that has access.</div>
+                    {% else %}
+                        <div class="alert alert-info">Please login to see this page.</div>
+                    {% endif %}
+                {% endif %}
+                <div class="form-signin w-100 h-100"></div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <h1 class="h3 mb-3 fw-normal">Please Login!</h1>
+
+                    {{ form|crispy }}
+
+                    <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Login</button>
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <sub>Don't have an account? <a href="{% url "register" %}">Register here</a></sub>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
