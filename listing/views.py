@@ -1,7 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,10 +10,18 @@ from listing.models import Image, Listing
 from listing.forms import ListingForm
 
 
-@login_required
 def index(request):
     ads = ["ad"] * 7
     return render(request, 'listing/index.html', context={"ads": ads})
+
+
+class ListMyListingsView(LoginRequiredMixin, ListView):
+    """ Lists all the ads created by a user """
+    model = Listing
+    template_name = 'listing/my-ads.html'
+
+    def get_queryset(self):
+        return Listing.objects.filter(user=self.request.user)
 
 
 class RegisterUserView(SuccessMessageMixin, CreateView):
@@ -51,7 +60,7 @@ class UpdateAdView(LoginRequiredMixin, UpdateView):
 class DeleteAdView(LoginRequiredMixin, DeleteView):
     """ Deletes an ad """
     model = Listing
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('my-ads')
 
     def get(self, *args, **kwargs):
         """ Overriding default behaviour to skip confirmation """

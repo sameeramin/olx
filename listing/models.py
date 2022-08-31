@@ -39,6 +39,7 @@ class Listing(models.Model):
 
     class Meta:
         db_table = 'listings'
+        ordering = ('-created_at', )
 
     def __str__(self):
         return f"{self.title} - Posted by {self.user.username}"
