@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from listing.models import Image
-from listing.forms import ListingForm, ListingMultiImageForm
+from listing.models import Image, Listing
+from listing.forms import ListingForm
 
 
 @login_required
@@ -24,17 +24,26 @@ class RegisterUserView(SuccessMessageMixin, CreateView):
 
 
 class CreateAdView(LoginRequiredMixin, CreateView):
-    form_class = ListingMultiImageForm
+    """ Creates a new ad """
+    form_class = ListingForm
     template_name = 'listing/create-ad.html'
 
     def form_valid(self, form):
         """ Saves a listing first, because image needs a listing before it can be saved """
-        listing = form['listing']
-        listing.instance.user = self.request.user
-        listing = listing.save()
-        images = self.request.FILES.getlist('image-image')
+        form.instance.user = self.request.user
+        listing = form.save()
+        images = self.request.FILES.getlist('image')
 
         for image in images:
             Image.objects.create(listing=listing, image=image)
 
         return redirect(reverse_lazy('create-ad'))
+
+
+class UpdateAdView(UpdateView):
+    """ Updates an existing ad """
+    model = Listing
+    form_class = ListingForm
+    template_name = 'listing/create-ad.html'
+    success_url = reverse_lazy('create-ad')
+
