@@ -14,7 +14,7 @@
                                               role="alert">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1 class="h3 mb-3 fw-normal">Create an ad!</h1>
 
