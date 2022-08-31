@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -40,10 +40,19 @@ class CreateAdView(LoginRequiredMixin, CreateView):
         return redirect(reverse_lazy('create-ad'))
 
 
-class UpdateAdView(UpdateView):
+class UpdateAdView(LoginRequiredMixin, UpdateView):
     """ Updates an existing ad """
     model = Listing
     form_class = ListingForm
     template_name = 'listing/create-ad.html'
     success_url = reverse_lazy('create-ad')
 
+
+class DeleteAdView(LoginRequiredMixin, DeleteView):
+    """ Deletes an ad """
+    model = Listing
+    success_url = reverse_lazy('index')
+
+    def get(self, *args, **kwargs):
+        """ Overriding default behaviour to skip confirmation """
+        return self.post(*args, **kwargs)
