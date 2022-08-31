@@ -1,0 +1,91 @@
+{% extends "listing/layout.html" %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block extra_styles %}
+    .carousel-images {
+    height: 400px;
+    object-fit: cover;
+    }
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-8">
+        <div class="row">
+            <div class="col-lg-6 col-md-8">
+                <h1 class="fw-light">{{ object.title }}</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div id="carouselExampleControls" class="carousel slide p-1 border rounded-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for image in object.image_set.all %}
+                            {{ forloop.counter }}
+                            {% ifequal forloop.counter 1 %}
+                                <div class="carousel-item active" data-bs-interval="1000000">
+                            {% else %}
+                                <div class="carousel-item" data-bs-interval="1000000">
+                            {% endifequal %}
+                        <img src="{% static 'images/' %}{{ image }}" class="d-block w-100 carousel-images"
+                             alt="{{ object.title }}">
+                        </div>
+                        {% endfor %}
+                        <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="h-100 p-5 bg-light border rounded-3 mt-2">
+                        <h2>Details</h2>
+                        <div class="d-flex justify-content-between my-5">
+                            <p>Price: {{ object.price }}</p>
+                            <p>Type: {{ object.category.name }}</p>
+                        </div>
+                        <hr>
+                        <h2>Description</h2>
+                        <p>{{ object.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Rs. {{ object.price }}</h2>
+                <div class="d-flex justify-content-between">
+                    <small>{{ object.city.name }}</small>
+                    <small>{{ object.created_at|timesince }}</small>
+                </div>
+                <hr>
+                <p>{{ object.short_description }}</p>
+                <hr>
+                <h3>Seller Details</h3>
+                <p>Seller name: {{ object.user.username|title }}</p>
+                <p>Address: {{ object.address }}</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

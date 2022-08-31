@@ -24,6 +24,12 @@ class ListMyListingsView(LoginRequiredMixin, ListView):
         return Listing.objects.filter(user=self.request.user)
 
 
+class DetailListingView(DetailView):
+    """ Show the detailed view of an ad """
+    model = Listing
+    template_name = 'listing/ad-details.html'
+
+
 class RegisterUserView(SuccessMessageMixin, CreateView):
     """ Creates a new user account """
     template_name = 'listing/register.html'
