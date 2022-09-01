@@ -7,7 +7,7 @@
 {% block extra_styles %}
     .carousel-images {
     height: 400px;
-    object-fit: cover;
+    object-fit: contain;
     }
 {% endblock %}
 
@@ -24,10 +24,9 @@
         <hr>
         <div class="row">
             <div class="col">
-                <div id="carouselExampleControls" class="carousel slide p-1 border rounded-3" data-bs-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide p-1 border text-bg-dark rounded-3" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {% for image in object.image_set.all %}
-                            {{ forloop.counter }}
                             {% ifequal forloop.counter 1 %}
                                 <div class="carousel-item active" data-bs-interval="1000000">
                             {% else %}
