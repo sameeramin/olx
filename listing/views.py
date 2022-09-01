@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -10,9 +10,10 @@ from listing.models import Image, Listing
 from listing.forms import ListingForm
 
 
-def index(request):
-    ads = ["ad"] * 7
-    return render(request, 'listing/index.html', context={"ads": ads})
+class ListListingView(ListView):
+    """ Lists all the ads """
+    model = Listing
+    template_name = 'listing/index.html'
 
 
 class ListMyListingsView(LoginRequiredMixin, ListView):
