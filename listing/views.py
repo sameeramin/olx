@@ -62,7 +62,17 @@ class UpdateAdView(LoginRequiredMixin, UpdateView):
     model = Listing
     form_class = ListingForm
     template_name = 'listing/update-ad.html'
-    success_url = reverse_lazy('create-ad')
+
+    def form_valid(self, form):
+        """ Updates a listing images by deleting previous images """
+        listing = form.save()
+        Image.objects.filter(listing=listing).delete()
+        images = self.request.FILES.getlist('image')
+
+        for image in images:
+            Image.objects.create(listing=listing, image=image)
+
+            return redirect(reverse_lazy('my-ads'))
 
 
 class DeleteAdView(LoginRequiredMixin, DeleteView):
