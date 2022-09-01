@@ -12,6 +12,7 @@ from listing.forms import ListingForm
 
 class ListListingView(ListView):
     """ Lists all the ads """
+    paginate_by = 6
     model = Listing
     template_name = 'listing/index.html'
 
