@@ -61,7 +61,7 @@ class UpdateAdView(LoginRequiredMixin, UpdateView):
     """ Updates an existing ad """
     model = Listing
     form_class = ListingForm
-    template_name = 'listing/create-ad.html'
+    template_name = 'listing/update-ad.html'
     success_url = reverse_lazy('create-ad')
 
 
