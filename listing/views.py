@@ -72,7 +72,7 @@ class UpdateAdView(LoginRequiredMixin, UpdateView):
         for image in images:
             Image.objects.create(listing=listing, image=image)
 
-            return redirect(reverse_lazy('my-ads'))
+        return redirect(reverse_lazy('my-ads'))
 
 
 class DeleteAdView(LoginRequiredMixin, DeleteView):

@@ -6,8 +6,13 @@
 
 {% block extra_styles %}
     .carousel-images {
-    height: 400px;
-    object-fit: contain;
+        height: 400px;
+        object-fit: contain;
+    }
+
+    .prevent-overflow {
+        white-space: pre-wrap;
+        word-break: normal;
     }
 {% endblock %}
 
@@ -63,7 +68,7 @@
                         </div>
                         <hr>
                         <h2>Description</h2>
-                        <pre>{{ object.description }}</pre>
+                        <pre class="prevent-overflow">{{ object.description }}</pre>
                     </div>
                 </div>
             </div>
