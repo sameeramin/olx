@@ -18,6 +18,7 @@ Register
                 {% endif %}
                 <form method="POST">
                     {% csrf_token %}
+                    <p><a href="{% url "index" %}" class="text-decoration-none"> &lArr; Go back to the homepage</a></p>
                     <h1 class="h3 mb-3 fw-normal">Please Register!</h1>
 
                     {{ form|crispy }}

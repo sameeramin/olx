@@ -7,16 +7,21 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url "index" %}" class="nav-link px-2 text-white">Home</a></li>
+                    <li><a href="{% url "create-ad" %}" class="nav-link px-2 text-white">Create Ad</a></li>
+                    <li><a href="{% url "my-ads" %}" class="nav-link px-2 text-white">My Ads</a></li>
+                {% endif %}
             </ul>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                {% if user.is_authenticated %}
+                    <span class="me-2">Welcome, <span class="text-primary">{{ user.get_username|title }}</span></span>
+                    <a type="button" href="{% url "logout" %}" class="btn btn-warning">Log out</a>
+                {% else %}
+                    <a href="{% url "login" %}" type="button" class="btn btn-outline-light me-2">Login</a>
+                    <a href="{% url "register" %}" type="button" class="btn btn-warning">Sign-up</a>
+                {% endif %}
             </div>
         </div>
     </div>
