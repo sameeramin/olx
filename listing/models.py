@@ -25,8 +25,8 @@ class Category(models.Model):
 
 
 class Listing(models.Model):
-    title = models.CharField(max_length=15)
-    short_description = models.CharField(max_length=75)
+    title = models.CharField(max_length=75)
+    short_description = models.CharField(max_length=150)
     description = models.TextField()
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.RESTRICT)
