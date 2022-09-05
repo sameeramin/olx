@@ -1,5 +1,5 @@
 from django import forms
-from listing.models import Listing
+from listing.models import Ad
 
 
 class ListingForm(forms.ModelForm):
@@ -9,5 +9,5 @@ class ListingForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Listing
+        model = Ad
         fields = ('title', 'short_description', 'description', 'price', 'category', 'address', 'city', 'image')
