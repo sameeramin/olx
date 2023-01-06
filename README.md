@@ -7,8 +7,6 @@ Olx clone in Django
 To get started clone this repository and make sure you have `python==3.8.5` installed in your system.
 Create a virtual environment and install requirements and that's pretty much it!
 
-## Add your files
-
 ```
 git clone https://gitlab.arbisoft.com/m.sameer/olx.git
 cd olx
