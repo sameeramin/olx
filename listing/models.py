@@ -24,7 +24,7 @@ class Category(models.Model):
         return self.name
 
 
-class Ad(models.Model):
+class Listing(models.Model):
     title = models.CharField(max_length=75)
     short_description = models.CharField(max_length=150)
     description = models.TextField()
@@ -46,7 +46,7 @@ class Ad(models.Model):
 
 
 class Image(models.Model):
-    ad = models.ForeignKey(Ad, default=None, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, default=None, on_delete=models.CASCADE)
     image = models.ImageField(verbose_name='Image', blank=True)
 
     class Meta:

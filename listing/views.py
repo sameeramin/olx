@@ -6,29 +6,29 @@ from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from listing.models import Image, Ad
+from listing.models import Image, Listing
 from listing.forms import ListingForm
 
 
 class ListListingView(ListView):
     """ Lists all the ads """
     paginate_by = 6
-    model = Ad
+    model = Listing
     template_name = 'listing/index.html'
 
 
 class ListMyListingsView(LoginRequiredMixin, ListView):
     """ Lists all the ads created by a user """
-    model = Ad
+    model = Listing
     template_name = 'listing/my-ads.html'
 
     def get_queryset(self):
-        return Ad.objects.filter(user=self.request.user)
+        return Listing.objects.filter(user=self.request.user)
 
 
 class DetailListingView(DetailView):
     """ Show the detailed view of an ad """
-    model = Ad
+    model = Listing
     template_name = 'listing/ad-details.html'
 
 
@@ -59,7 +59,7 @@ class CreateAdView(LoginRequiredMixin, CreateView):
 
 class UpdateAdView(LoginRequiredMixin, UpdateView):
     """ Updates an existing ad """
-    model = Ad
+    model = Listing
     form_class = ListingForm
     template_name = 'listing/update-ad.html'
 
@@ -77,7 +77,7 @@ class UpdateAdView(LoginRequiredMixin, UpdateView):
 
 class DeleteAdView(LoginRequiredMixin, DeleteView):
     """ Deletes an ad """
-    model = Ad
+    model = Listing
     success_url = reverse_lazy('my-ads')
 
     def get(self, *args, **kwargs):

@@ -32,17 +32,14 @@
             <div class="col">
                 <div id="carouselExampleControls" class="carousel slide p-1 border text-bg-dark rounded-3" data-bs-ride="carousel">
                     <div class="carousel-inner">
-
                         {% for image in object.image_set.all %}
-                            <div
-                                {% ifequal forloop.counter 1 %}
-                                    class="carousel-item active"
-                                {% else %}
-                                    class="carousel-item"
-                                {% endifequal %}
-                            data-bs-interval="1000000">
-                            <img src="{% static 'images/' %}{{ image }}" class="d-block w-100 carousel-images"
-                                 alt="{{ object.title }}">
+                            {% ifequal forloop.counter 1 %}
+                                <div class="carousel-item active" data-bs-interval="1000000">
+                            {% else %}
+                                <div class="carousel-item" data-bs-interval="1000000">
+                            {% endifequal %}
+                        <img src="{% static 'images/' %}{{ image }}" class="d-block w-100 carousel-images"
+                             alt="{{ object.title }}">
                         </div>
                         {% endfor %}
                         <button class="carousel-control-prev" type="button"
